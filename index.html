@@ -1,0 +1,1335 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nada Nur Sa'diyah - Portfolio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: linear-gradient(135deg, #ffeef8 0%, #f3e5f5 50%, #e8eaf6 100%);
+            --bg-secondary: #ffffff;
+            --text-primary: #4a148c;
+            --text-secondary: #7b1fa2;
+            --accent: #e91e63;
+            --accent-light: #f48fb1;
+            --shadow: rgba(233, 30, 99, 0.15);
+            --card-bg: rgba(255, 255, 255, 0.85);
+        }
+
+        [data-theme="dark"] {
+            --bg-primary: linear-gradient(135deg, #1a0a1f 0%, #2d1b3d 50%, #1e0b2e 100%);
+            --bg-secondary: #1a0a1f;
+            --text-primary: #f8bbd0;
+            --text-secondary: #ce93d8;
+            --accent: #ff4081;
+            --accent-light: #f48fb1;
+            --shadow: rgba(255, 64, 129, 0.3);
+            --card-bg: rgba(45, 27, 61, 0.7);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            transition: all 0.4s ease;
+            overflow-x: hidden;
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            padding: 1rem 2rem;
+            box-shadow: 0 4px 20px var(--shadow);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, var(--accent), var(--text-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 1px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text-primary);
+            text-decoration: none;
+            font-weight: 500;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .theme-toggle {
+            background: var(--accent);
+            border: none;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            transform: rotate(180deg);
+            box-shadow: 0 0 20px var(--accent);
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 4px;
+            cursor: pointer;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: var(--text-primary);
+            transition: all 0.3s ease;
+        }
+
+        main {
+            margin-top: 80px;
+            min-height: calc(100vh - 80px);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .page {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        .hero {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            min-height: 80vh;
+            gap: 3rem;
+            padding: 3rem 0;
+        }
+
+        .hero-content {
+            flex: 1;
+            animation: fadeInLeft 1s ease;
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--accent), var(--text-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-content h2 {
+            font-size: 1.8rem;
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-content p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--text-primary);
+            margin-bottom: 2rem;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn {
+            padding: 0.9rem 2rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent), #c2185b);
+            color: white;
+            box-shadow: 0 4px 15px var(--shadow);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 25px var(--shadow);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--accent);
+            border: 2px solid var(--accent);
+        }
+
+        .btn-secondary:hover {
+            background: var(--accent);
+            color: white;
+        }
+
+        .hero-image {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            animation: fadeInRight 1s ease;
+        }
+
+        .profile-circle {
+            width: 350px;
+            height: 350px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent-light), var(--text-secondary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 40px var(--shadow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .profile-circle::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.3), transparent);
+            animation: shine 3s infinite;
+        }
+
+        .profile-circle i {
+            font-size: 150px;
+            color: white;
+        }
+
+        .about-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+            padding: 3rem 0;
+        }
+
+        .about-image {
+            display: flex;
+            justify-content: center;
+        }
+
+        .about-circle {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent), var(--text-secondary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 40px var(--shadow);
+        }
+
+        .about-circle i {
+            font-size: 120px;
+            color: white;
+        }
+
+        .about-content h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--accent);
+        }
+
+        .about-content p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            color: var(--text-primary);
+        }
+
+        .about-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .stat-card {
+            background: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 4px 15px var(--shadow);
+            transition: transform 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-card h3 {
+            font-size: 2rem;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-card p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: var(--accent);
+        }
+
+        .portfolio-nav {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .portfolio-nav-btn {
+            padding: 0.8rem 2rem;
+            background: var(--card-bg);
+            border: 2px solid var(--accent);
+            border-radius: 50px;
+            color: var(--text-primary);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .portfolio-nav-btn.active,
+        .portfolio-nav-btn:hover {
+            background: var(--accent);
+            color: white;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .project-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px var(--shadow);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 30px var(--shadow);
+        }
+
+        .project-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, var(--accent-light), var(--text-secondary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .project-image i {
+            font-size: 80px;
+            color: white;
+        }
+
+        .project-info {
+            padding: 1.5rem;
+        }
+
+        .project-info h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.8rem;
+            color: var(--accent);
+        }
+
+        .project-info p {
+            color: var(--text-primary);
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .project-tags {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            padding: 0.3rem 0.8rem;
+            background: var(--accent);
+            color: white;
+            border-radius: 15px;
+            font-size: 0.8rem;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .skill-card {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 4px 15px var(--shadow);
+            transition: transform 0.3s ease;
+        }
+
+        .skill-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .skill-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .skill-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--accent), var(--text-secondary));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        .skill-card h3 {
+            color: var(--accent);
+            font-size: 1.2rem;
+        }
+
+        .skill-bar {
+            width: 100%;
+            height: 10px;
+            background: rgba(233, 30, 99, 0.2);
+            border-radius: 10px;
+            overflow: hidden;
+            margin-top: 1rem;
+        }
+
+        .skill-progress {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent), var(--text-secondary));
+            border-radius: 10px;
+            transition: width 1s ease;
+        }
+
+        .certificates-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .certificate-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 4px 15px var(--shadow);
+            transition: transform 0.3s ease;
+            text-align: center;
+        }
+
+        .certificate-card:hover {
+            transform: scale(1.05);
+        }
+
+        .certificate-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 1.5rem;
+            background: linear-gradient(135deg, var(--accent), var(--text-secondary));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2rem;
+        }
+
+        .certificate-card h3 {
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+            font-size: 1.2rem;
+        }
+
+        .certificate-card p {
+            color: var(--text-secondary);
+            margin-bottom: 0.3rem;
+        }
+
+        .contact-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            padding: 3rem 0;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            background: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px var(--shadow);
+            transition: transform 0.3s ease;
+        }
+
+        .contact-item:hover {
+            transform: translateX(10px);
+        }
+
+        .contact-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--accent), var(--text-secondary));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        .contact-item h3 {
+            color: var(--accent);
+            margin-bottom: 0.3rem;
+        }
+
+        .contact-item p {
+            color: var(--text-primary);
+        }
+
+        .contact-form {
+            background: var(--card-bg);
+            padding: 2.5rem;
+            border-radius: 20px;
+            box-shadow: 0 4px 15px var(--shadow);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.9rem;
+            border: 2px solid var(--accent-light);
+            border-radius: 10px;
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .search-container {
+            max-width: 600px;
+            margin: 2rem auto;
+            position: relative;
+        }
+
+        .search-box {
+            width: 100%;
+            padding: 1rem 3rem 1rem 1.5rem;
+            border: 2px solid var(--accent-light);
+            border-radius: 50px;
+            background: var(--card-bg);
+            color: var(--text-primary);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .search-box:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 4px 15px var(--shadow);
+        }
+
+        .search-btn {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--accent);
+            border: none;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .search-btn:hover {
+            background: #c2185b;
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .social-link {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--accent), var(--text-secondary));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.3rem;
+            text-decoration: none;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .social-link:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px var(--shadow);
+        }
+
+        footer {
+            background: var(--card-bg);
+            padding: 2rem;
+            text-align: center;
+            color: var(--text-primary);
+            margin-top: 4rem;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes fadeInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes shine {
+            0% {
+                transform: translateX(-100%);
+            }
+            100% {
+                transform: translateX(100%);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                left: -100%;
+                flex-direction: column;
+                background: var(--card-bg);
+                width: 100%;
+                padding: 2rem;
+                transition: left 0.3s ease;
+                box-shadow: 0 4px 20px var(--shadow);
+            }
+
+            .nav-links.active {
+                left: 0;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .hero {
+                flex-direction: column-reverse;
+                text-align: center;
+            }
+
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-content h2 {
+                font-size: 1.4rem;
+            }
+
+            .cta-buttons {
+                justify-content: center;
+                flex-direction: column;
+            }
+
+            .profile-circle {
+                width: 250px;
+                height: 250px;
+            }
+
+            .about-section {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .contact-section {
+                grid-template-columns: 1fr;
+            }
+
+            .about-stats {
+                grid-template-columns: 1fr;
+            }
+
+            .portfolio-nav {
+                flex-direction: column;
+                align-items: stretch;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <div class="logo">Nada Nur Sa'diyah</div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#" data-page="home" class="nav-link active">Home</a></li>
+                <li><a href="#" data-page="about" class="nav-link">About Me</a></li>
+                <li><a href="#" data-page="projects" class="nav-link">Projects</a></li>
+                <li><a href="#" data-page="skills" class="nav-link">Skills</a></li>
+                <li><a href="#" data-page="certificates" class="nav-link">Certificates</a></li>
+                <li><a href="#" data-page="contact" class="nav-link">Contact</a></li>
+            </ul>
+            <button class="theme-toggle" id="themeToggle">
+                <i class="fas fa-moon"></i>
+            </button>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <main id="mainContent">
+        <!-- Home Page -->
+        <div class="page active" id="home">
+            <div class="container">
+                <div class="search-container">
+                    <input type="text" class="search-box" placeholder="Cari sesuatu di portfolio saya..." id="searchInput">
+                    <button class="search-btn" id="searchBtn">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+                <div class="hero">
+                    <div class="hero-content">
+                        <h1>Halo, Saya Nada!</h1>
+                        <h2>Pelajar</h2>
+                        <p>Selamat datang di portofolio saya! Saya adalah seorang pelajar yang berusaha dalam mencari pengalaman dan passion yang indah dan fungsional.</p>
+                        <div class="cta-buttons">
+                            <a href="#" class="btn btn-primary" data-page="projects">Lihat Projects</a>
+                            <a href="#" class="btn btn-secondary" data-page="contact">Hubungi Saya</a>
+                        </div>
+                        <div class="social-links">
+                            <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                            <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
+                            <a href="#" class="social-link"><i class="fab fa-github"></i></a>
+                            <a href="#" class="social-link"><i class="fas fa-envelope"></i></a>
+                        </div>
+                    </div>
+                    <div class="hero-image">
+                        <div class="profile-circle">
+                        <img src="nada 2.jpg" alt="nada_profile" class="profile-photo">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>    
+        <!-- About Me Page -->
+        <div class="page" id="about">
+            <div class="container">
+                <div class="about-section">
+                    <div class="about-image">
+                        <div class="about-circle">
+                            <i class="fas fa-heart"></i>
+                        </div>
+                    </div>
+                    <div class="about-content">
+                        <h1>Tentang Saya</h1>
+                        <p>Saya Nada Nur Sa'diyah, seorang pelajar yang sedang  mengumpulkan pengalaman dan passion di berbagai bidang yang membuat saya tertarik.</p>
+                        <p>Saya percaya bahwa pengalaman bukan hanya tentang keindahan visual, tetapi juga tentang menciptakan pengalaman pengguna yang meaningful dan memorable. Setiap project adalah kesempatan untuk berinovasi dan memberikan solusi kreatif.</p>
+                        <p>Dengan pengalaman di berbagai project, saya terus belajar dan berkembang untuk memberikan hasil terbaik di setiap karya yang saya buat. Saya senang berkolaborasi dan mengubah ide menjadi kenyataan.</p>
+                    </div>
+                </div>
+                <div class="about-stats">
+                    <div class="stat-card">
+                        <h3>20+</h3>
+                        <p>Projects Completed</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>15+</h3>
+                        <p>Happy Clients</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>8+</h3>
+                        <p>Certificates</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Projects Page -->
+        <div class="page" id="projects">
+            <div class="container">
+                <h1 class="section-title">My Projects</h1>
+                <div class="projects-grid">
+                    <div class="project-card">
+                        <div class="project-image">
+                            <i class="fas fa-palette"></i>
+                        </div>
+                        <div class="project-info">
+                            <h3>Brand Identity Design</h3>
+                            <p>Menciptakan identitas brand yang konsisten dan memorable untuk startup teknologi dengan konsep modern dan futuristik.</p>
+                            <div class="project-tags">
+                                <span class="tag">Design</span>
+                                <span class="tag">Branding</span>
+                                <span class="tag">Ilustrasi</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-card">
+                        <div class="project-image">
+                            <i class="fas fa-mobile-alt"></i>
+                        </div>
+                        <div class="project-info">
+                            <h3>Mobile App UI/UX</h3>
+                            <p>Desain aplikasi mobile yang user-friendly dengan interface modern, intuitif, dan memberikan pengalaman yang seamless.</p>
+                            <div class="project-tags">
+                                <span class="tag">UI/UX</span>
+                                <span class="tag">Mobile</span>
+                                <span class="tag">Figma</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-card">
+                        <div class="project-image">
+                            <i class="fas fa-laptop-code"></i>
+                        </div>
+                        <div class="project-info">
+                            <h3>Website Development</h3>
+                            <p>Pengembangan website responsive dengan performa tinggi, desain modern, dan optimasi SEO yang maksimal.</p>
+                            <div class="project-tags">
+                                <span class="tag">Web Dev</span>
+                                <span class="tag">Frontend</span>
+                                <span class="tag">React</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-card">
+                        <div class="project-image">
+                            <i class="fas fa-shopping-cart"></i>
+                        </div>
+                        <div class="project-info">
+                            <h3>E-Commerce Platform</h3>
+                            <p>Platform e-commerce lengkap dengan sistem pembayaran terintegrasi, dashboard admin, dan manajemen inventory.</p>
+                            <div class="project-tags">
+                                <span class="tag">Full Stack</span>
+                                <span class="tag">E-Commerce</span>
+                                <span class="tag">Payment</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-card">
+                        <div class="project-image">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <div class="project-info">
+                            <h3>Analytics Dashboard</h3>
+                            <p>Dashboard analytics dengan visualisasi data real-time, reporting, dan insights untuk business intelligence.</p>
+                            <div class="project-tags">
+                                <span class="tag">Dashboard</span>
+                                <span class="tag">Data Viz</span>
+                                <span class="tag">Analytics</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-card">
+                        <div class="project-image">
+                            <i class="fas fa-video"></i>
+                        </div>
+                        <div class="project-info">
+                            <h3>Video Streaming App</h3>
+                            <p>Aplikasi streaming video dengan fitur live streaming, video on demand, dan interactive features.</p>
+                            <div class="project-tags">
+                                <span class="tag">Streaming</span>
+                                <span class="tag">Media</span>
+                                <span class="tag">WebRTC</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Skills Page -->
+        <div class="page" id="skills">
+            <div class="container">
+                <h1 class="section-title">My Skills</h1>
+                <div class="skills-grid">
+                    <div class="skill-card">
+                        <div class="skill-header">
+                            <div class="skill-icon">
+                                <i class="fab fa-html5"></i>
+                            </div>
+                            <h3>Ms.Word</h3>
+                        </div> 
+                        <p>Menguasai Ms Word.</p>
+                        <div class="skill-bar 90%">
+                            <div class="skill-progress 92%" style="width: 90%"></div>
+                        </div> 92% 
+                    </div>
+                    <div class="skill-card">
+
+                        <div class="skill-header">
+                            <div class="skill-icon">
+                                <i class="fab fa-js"></i>
+                            </div>
+                            <h3>Ms.Ppt </p>
+                        </div>
+                        <p>Membuat  presentasi dalam bentuk slide yang menarik menggunakan teks, gambar, video, dan animasi.</p>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 90%"></div>
+                        </div> 60%
+                    </div>
+                    <div class="skill-card">
+                        <div class="skill-header">
+                            <div class="skill-icon">
+                                <i class="fab fa-react"></i>
+                            </div>
+                            <h3>Ms.Excel</h3>
+                        </div>
+                        <p>Mengelola, menganalisis, menyusun data.</p>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 85%"></div>
+                        </div> 10%
+                    </div>
+                    <div class="skill-card">
+                        <div class="skill-header">
+                            <div class="skill-icon">
+                                <i class="fas fa-paint-brush"></i>
+                            </div>
+                            <h3>Canva</h3>
+                        </div>
+                        <p>Membuat konten visual seperti desain grafis, presentasi, video, konten media sosial.</p>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 92%"></div>
+                        </div> 98%
+                    </div>
+                    <div class="skill-card">
+                        <div class="skill-header">
+                            <div class="skill-icon">
+                                <i class="fab fa-figma"></i>
+                            </div>
+                            <h3>Capcut</h3>
+                        </div>
+                        <p>Menguasai dalam pembuatan konten media sosial.</p>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 88%"></div>
+                        </div> 98%
+                    </div>
+                    <div class="skill-card">
+                        <div class="skill-header">
+                            <div class="skill-icon">
+                                <i class="fab fa-node"></i>
+                            </div>
+                            <h3>Picsart</h3>
+                        </div>
+                        <p>Mengedit foto, video, mendesain grafis.</p>
+                        <div class="skill-bar">
+                        <div class="skill-progress" style="width: 45%"></div>
+                        </div> 45%
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Certificates Page -->
+        <div class="page" id="certificates">
+            <div class="container">
+                <h1 class="section-title">Certificates & Achievements</h1>
+                <div class="certificates-grid">
+                    <div class="certificate-card">
+                        <div class="certificate-icon">
+                            <i class="fas fa-award"></i>
+                        </div>
+                        <h3>Web Development Certification</h3>
+                        <p>FreeCodeCamp</p>
+                        <p>2024</p>
+                    </div>
+                    <div class="certificate-card">
+                        <div class="certificate-icon">
+                            <i class="fas fa-trophy"></i>
+                        </div>
+                        <h3>UI/UX Design Professional</h3>
+                        <p>Google UX Design</p>
+                        <p>2024</p>
+                    </div>
+                    <div class="certificate-card">
+                        <div class="certificate-icon">
+                            <i class="fas fa-medal"></i>
+                        </div>
+                        <h3>JavaScript Advanced</h3>
+                        <p>Udemy</p>
+                        <p>2023</p>
+                    </div>
+                    <div class="certificate-card">
+                        <div class="certificate-icon">
+                            <i class="fas fa-certificate"></i>
+                        </div>
+                        <h3>React Developer</h3>
+                        <p>Meta Front-End Developer</p>
+                        <p>2023</p>
+                    </div>
+                    <div class="certificate-card">
+                        <div class="certificate-icon">
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <h3>Best Design Award</h3>
+                        <p>Design Competition 2024</p>
+                        <p>1st Place</p>
+                    </div>
+                    <div class="certificate-card">
+                        <div class="certificate-icon">
+                            <i class="fas fa-crown"></i>
+                        </div>
+                        <h3>Hackathon Winner</h3>
+                        <p>Tech Hackathon 2024</p>
+                        <p>Champion</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Contact Page -->
+        <div class="page" id="contact">
+            <div class="container">
+                <h1 class="section-title">Get In Touch</h1>
+                <div class="contact-section">
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div>
+                                <h3>Email</h3>
+                                <p>nadasdyhwtm@gmail.com</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-phone"></i>
+                            </div>
+                            <div>
+                                <h3>Phone</h3>
+                                <p>+62 852-7517-8531</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div>
+                                <h3>Location</h3>
+                                <p>Bandung, Indonesia</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div>
+                                <h3>Available</h3>
+                                <p>Monday - Friday, 9AM - 5PM</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="contact-form">
+                        <h2 style="color: var(--accent); margin-bottom: 1.5rem;">Send Message</h2>
+                        <form id="contactForm">
+                            <div class="form-group">
+                                <label for="name">Nama</label>
+                                <input type="text" id="name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input type="email" id="email" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="subject">Subject</label>
+                                <input type="text" id="subject" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="message">Message</label>
+                                <textarea id="message" required></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary" style="width: 100%;">Send Message</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Nada Nur Sa'diyah. All Rights Reserved. Made with <i class="fas fa-heart" style="color: var(--accent);"></i></p>
+    </footer>
+
+    <script>
+        // Theme Toggle
+        const themeToggle = document.getElementById('themeToggle');
+        const body = document.body;
+        const themeIcon = themeToggle.querySelector('i');
+
+        themeToggle.addEventListener('click', () => {
+            if (body.getAttribute('data-theme') === 'dark') {
+                body.removeAttribute('data-theme');
+                themeIcon.className = 'fas fa-moon';
+            } else {
+                body.setAttribute('data-theme', 'dark');
+                themeIcon.className = 'fas fa-sun';
+            }
+        });
+
+        // Page Navigation
+        const navLinks = document.querySelectorAll('.nav-link');
+        const pages = document.querySelectorAll('.page');
+        const hamburger = document.getElementById('hamburger');
+        const navLinksContainer = document.getElementById('navLinks');
+
+        function showPage(pageId) {
+            pages.forEach(page => {
+                page.classList.remove('active');
+            });
+            
+            const targetPage = document.getElementById(pageId);
+            if (targetPage) {
+                targetPage.classList.add('active');
+            }
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+            });
+
+            const activeLink = document.querySelector(`[data-page="${pageId}"]`);
+            if (activeLink) {
+                activeLink.classList.add('active');
+            }
+
+            // Close mobile menu
+            navLinksContainer.classList.remove('active');
+            
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const pageId = link.getAttribute('data-page');
+                showPage(pageId);
+            });
+        });
+
+        // CTA Buttons
+        document.querySelectorAll('[data-page]').forEach(btn => {
+            if (!btn.classList.contains('nav-link')) {
+                btn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const pageId = btn.getAttribute('data-page');
+                    showPage(pageId);
+                });
+            }
+        });
+
+        // Hamburger Menu
+        hamburger.addEventListener('click', () => {
+            navLinksContainer.classList.toggle('active');
+        });
+
+        // Search Functionality
+        const searchInput = document.getElementById('searchInput');
+        const searchBtn = document.getElementById('searchBtn');
+
+        searchBtn.addEventListener('click', () => {
+            const searchTerm = searchInput.value.toLowerCase();
+            if (searchTerm) {
+                alert(`Mencari: ${searchTerm}\n\nFitur pencarian akan menampilkan hasil yang relevan dengan kata kunci Anda!`);
+            }
+        });
+
+        searchInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                searchBtn.click();
+            }
+        });
+
+        // Contact Form
+        const contactForm = document.getElementById('contactForm');
+        if (contactForm) {
+            contactForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const name = document.getElementById('name').value;
+                const email = document.getElementById('email').value;
+                const subject = document.getElementById('subject').value;
+                const message = document.getElementById('message').value;
+
+                alert(`Terima kasih ${name}!\n\nPesan Anda telah dikirim. Saya akan segera menghubungi Anda melalui ${email}.`);
+                contactForm.reset();
+            });
+        }
+
+        // Skill Progress Animation
+        function animateSkills() {
+            const skillBars = document.querySelectorAll('.skill-progress');
+            skillBars.forEach(bar => {
+                const width = bar.style.width;
+                bar.style.width = '0%';
+                setTimeout(() => {
+                    bar.style.width = width;
+                }, 100);
+            });
+        }
+
+        // Animate skills when skills page is shown
+        const observer = new MutationObserver((mutations) => {
+            mutations.forEach((mutation) => {
+                if (mutation.target.id === 'skills' && mutation.target.classList.contains('active')) {
+                    animateSkills();
+                }
+            });
+        });
+
+        pages.forEach(page => {
+            observer.observe(page, { attributes: true, attributeFilter: ['class'] });
+        });
+    </script>
+</body>
+</html>
